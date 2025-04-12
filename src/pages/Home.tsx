@@ -9,15 +9,14 @@ import Gojek from "../assets/MamasGojek.jpg";
 import EnvelopeModal from "../components/EnvelopeModal";
 import Notif from "../components/Notif";
 
-
 function Home() {
   const navigate = useNavigate();
   const [showChatBubble, setShowChatBubble] = useState(false);
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [showEnvelope, setShowEnvelope] = useState(false);
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isScreenTooSmall, setIsScreenTooSmall] = useState(false); // 👈 new state
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const tracks = [
@@ -41,6 +40,17 @@ function Home() {
       if (isPlaying) audioRef.current.play();
     }
   }, [currentTrackIndex]);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsScreenTooSmall(window.innerWidth < 480);
+    };
+
+    checkScreenSize(); // on mount
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -71,8 +81,16 @@ function Home() {
   ];
 
   return (
-    <div className="flex flex-col relative h-screen bg-[#c5b59e]  overflow-hidden">
+    <div className="flex flex-col relative h-screen bg-[#c5b59e] overflow-hidden">
       <Notif message="Try clicking on the window or the door to continue!" />
+
+      {/* Mobile Screen Warning */}
+      {isScreenTooSmall && (
+        <div className="fixed top-0 left-0 right-0 z-50 bg-red-500 text-white text-center py-2">
+          Screen size is too small. Please open this site on a device with a
+          larger display.
+        </div>
+      )}
 
       {/* Background */}
       <div className="absolute inset-0 z-0">
@@ -178,7 +196,7 @@ function Home() {
         )}
       </AnimatePresence>
 
-      {/* Tape Modal */}
+      {/* Envelope Modal */}
       <AnimatePresence>
         {showEnvelope && (
           <EnvelopeModal
