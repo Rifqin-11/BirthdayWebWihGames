@@ -29,6 +29,7 @@ import Photo27 from "../assets/Book4/Tegar20.jpg";
 import Photo28 from "../assets/Book4/Tegar21.jpg";
 import Photo29 from "../assets/Book4/Tegar22.jpg";
 import Photo30 from "../assets/Book4/Tegar23.jpg";
+import Photo31 from "../assets/Book4/Tegar14.jpg";
 
 interface BookPhotos {
   images: string[];
@@ -38,12 +39,12 @@ interface BookPhotos {
 const PhotoData: Record<string, BookPhotos> = {
   book1: {
     images: [Photo1, Photo2, Photo3],
-    caption: "Tentang masa kecil Mas Tegar yang penuh keceriaan dan kepolosan.",
+    caption: "eyang's house, denim shorts and tewak tewok 👦🏻🏡🌝",
   },
   book2: {
     images: [Photo4, Photo5, Photo6, Photo7],
     caption:
-      "Masa remaja Mas Tegar yang penuh semangat dan pencarian jati diri.",
+      "look how far you've come, grow, and GLOW hahahaa 👨🏻‍💼🚀",
   },
   book3: {
     images: [
@@ -66,12 +67,12 @@ const PhotoData: Record<string, BookPhotos> = {
       Photo24,
     ],
     caption:
-      "Kisah cinta Mas Tegar dan Mbak Ayunda yang manis dan penuh kenangan.",
+      "happy birthday Tegar🥳 let's keep on growing, dancing, and exploring this world together💃🏻❤‍🔥 stand taller & shine brighter! i am here watching you👀🫵🏼🤣💙🥰",
   },
   book4: {
-    images: [Photo25, Photo26, Photo27, Photo28, Photo29, Photo30],
+    images: [Photo25, Photo26, Photo27, Photo28, Photo29, Photo30, Photo31],
     caption:
-      "Tentang keluarga Mas Tegar, sumber kekuatan dan cinta yang sejati.",
+      "you'll always have us that proud of you in everything 💖😋🤙🏻",
   },
 };
 

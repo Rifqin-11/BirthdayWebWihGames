@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import book1 from "../assets/Book1/5.png";
@@ -14,8 +14,6 @@ import bookOpen4 from "../assets/Book4/7.png";
 
 import PhotoData from "../lib/data";
 import BookModal from "../components/BookModal";
-
-// ... (imports tetap sama)
 
 function Books() {
   const navigate = useNavigate();
@@ -38,22 +36,32 @@ function Books() {
         exit={{ opacity: 0, y: 50 }}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-lg shadow-lg w-[80%] z-20"
       >
-        {/* Caption */}
-        <div className="text-center text-lg font-medium text-gray-700 mb-4">
-          {book.caption}
-        </div>
+        <div className="relative">
+          {/* Tombol X di pojok kanan atas */}
+          <button
+            onClick={() => setOpenedBook(null)}
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <X size={24} />
+          </button>
 
-        {/* Grid */}
-        <div className="flex flex-wrap justify-center gap-4">
-          {book.images.map((photo, idx) => (
-            <img
-              key={idx}
-              src={photo}
-              alt={`Photo ${idx + 1}`}
-              onClick={() => setSelectedPhoto(photo)}
-              className="w-32 h-32 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform"
-            />
-          ))}
+          {/* Caption */}
+          <div className="text-center text-lg font-medium text-gray-700 mb-4">
+            {book.caption}
+          </div>
+
+          {/* Grid */}
+          <div className="flex flex-wrap justify-center gap-4">
+            {book.images.map((photo, idx) => (
+              <img
+                key={idx}
+                src={photo}
+                alt={`Photo ${idx + 1}`}
+                onClick={() => setSelectedPhoto(photo)}
+                className="w-32 h-32 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform"
+              />
+            ))}
+          </div>
         </div>
       </motion.div>
     );
@@ -85,7 +93,11 @@ function Books() {
           { id: "book3", closed: book3, open: bookOpen3 },
           { id: "book4", closed: book4, open: bookOpen4 },
         ].map(({ id, closed, open }) => (
-          <div key={id} onClick={() => handleBookClick(id)} className="cursor-pointer">
+          <div
+            key={id}
+            onClick={() => handleBookClick(id)}
+            className="cursor-pointer"
+          >
             <img
               src={openedBook === id ? open : closed}
               alt={`Book ${id}`}
@@ -114,4 +126,3 @@ function Books() {
 }
 
 export default Books;
-

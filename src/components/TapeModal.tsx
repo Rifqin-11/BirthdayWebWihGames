@@ -2,6 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { X, SkipBack, Play, Pause, SkipForward } from "lucide-react";
 import tape from "../assets/tape2.gif";
+import Bapak from '../assets/VoiceMemos/BapakDya.m4a'
+import Ibu from '../assets/VoiceMemos/IbuDya.m4a'
+import Ayunda from '../assets/VoiceMemos/MbaAyun.m4a'
+import Dya from '../assets/VoiceMemos/Dya.m4a'
+import Ayu from '../assets/VoiceMemos/Ayu.m4a'
 
 interface Book {
   id: number;
@@ -16,9 +21,11 @@ interface BookModalProps {
 
 // Daftar lagu yang akan diputar
 const tracks = [
-  { id: 1, title: "Lagu 1", src: "/path/to/track1.mp3" },
-  { id: 2, title: "Lagu 2", src: "/path/to/track2.mp3" },
-  { id: 3, title: "Lagu 3", src: "/path/to/track3.mp3" },
+  { id: 1, title: "Bapak", src: Bapak },
+  { id: 2, title: "Ibu", src: Ibu },
+  { id: 3, title: "Mba Ayunda", src: Ayunda},
+  { id: 4, title: "Dya", src: Dya },
+  { id: 5, title: "Ayu", src: Ayu },
 ];
 
 function TapeModal({ onClose }: BookModalProps) {
