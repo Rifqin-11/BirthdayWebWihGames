@@ -120,9 +120,9 @@ function Library() {
 
         {/* Cake */}
         <motion.div
-          whileHover={{ top: "59vh" }}
+          whileHover={{ top: "58vh" }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="absolute z-20 left-[43%] top-[61vh] w-[15%] h-auto hover:cursor-pointer"
+          className="absolute z-20 left-[43%] top-[60vh] w-[15%] h-auto hover:cursor-pointer"
           onClick={() => navigate("/Puzzle")}
         >
           <img src={cake} alt="Cake" className="w-full h-auto" />
@@ -130,9 +130,9 @@ function Library() {
 
         {/* Book */}
         <motion.div
-          whileHover={{ top: "53vh" }}
+          whileHover={{ top: "51vh" }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="absolute z-20 left-[10%] top-[55vh] w-[20%] h-auto hover:cursor-pointer"
+          className="absolute z-20 left-[10%] top-[53vh] w-[20%] h-auto hover:cursor-pointer"
           onClick={() => navigate("/Books")}
         >
           <img src={book} alt="Book" className="w-full h-auto" />
