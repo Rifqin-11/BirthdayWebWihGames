@@ -67,7 +67,7 @@ const PhotoData: Record<string, BookPhotos> = {
       Photo24,
     ],
     caption:
-      "happy birthday Tegar🥳 let's keep on growing, dancing, and exploring this world together💃🏻❤‍🔥 stand taller & shine brighter! i am here watching you👀🫵🏼🤣💙🥰",
+      "cheers to forever 👩‍❤‍👨🥂",
   },
   book4: {
     images: [Photo25, Photo26, Photo27, Photo28, Photo29, Photo30, Photo31],
