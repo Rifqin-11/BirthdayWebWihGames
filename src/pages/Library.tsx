@@ -25,7 +25,7 @@ function Library() {
       id: 1,
       title: "Classic Literature",
       image:
-        "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&q=80&w=200&h=300",
+        "https://images.unsplash.com/photo-15430025882-bfa74002ed7e?auto=format&fit=crop&q=80&w=200&h=300",
     },
   ];
 
