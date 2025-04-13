@@ -78,8 +78,8 @@ function Library() {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Back Button */}
         <div className="flex justify-between w-full items-center mt-4">
+        {/* Back Button */}
           <div className="p-6">
             <button
               onClick={() => navigate("/")}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,15 +14,47 @@ import bookOpen4 from "../assets/Book4/7.png";
 
 import PhotoData from "../lib/data";
 import BookModal from "../components/BookModal";
+import birthdaySong from "../assets/Photograph.mp3";
 
 function Books() {
   const navigate = useNavigate();
   const [openedBook, setOpenedBook] = useState<string | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(true); // langsung aktif
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleBookClick = (bookId: string) => {
     setOpenedBook(bookId === openedBook ? null : bookId);
   };
+
+    useEffect(() => {
+      // Autoplay musik
+      if (audioRef.current) {
+        audioRef.current.muted = true;
+        audioRef.current
+          .play()
+          .then(() => {
+            // Setelah berhasil play, unmute agar suara terdengar
+            audioRef.current!.muted = false;
+          })
+          .catch((err) => {
+            console.log("Autoplay gagal: ", err);
+            setIsPlaying(false);
+          });
+      }
+    }, []);
+
+    const toggleMusic = () => {
+      if (audioRef.current) {
+        if (audioRef.current.paused) {
+          audioRef.current.play();
+          setIsPlaying(true);
+        } else {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        }
+      }
+    };
 
   const renderPhotoGrid = (bookId: string) => {
     const book = PhotoData[bookId];
@@ -70,14 +102,28 @@ function Books() {
   return (
     <div className="relative w-screen h-screen bg-white overflow-hidden">
       {/* Navigation */}
-      <div className="p-6 z-20 relative">
-        <button
-          onClick={() => navigate("/Library")}
-          className="flex items-center gap-2 text-amber-800 hover:text-amber-600 transition-colors bg-white/80 px-4 py-2 rounded-lg shadow-md"
-        >
-          <ArrowLeft size={20} />
-          Back to Bookstore
-        </button>
+      <div className="flex justify-between w-full items-center mt-4">
+        {/* Back Button */}
+        <div className="p-6">
+          <button
+            onClick={() => navigate("/Library")}
+            className="flex items-center gap-2 text-amber-800 hover:text-amber-600 transition-colors bg-white/80 px-4 py-2 rounded-lg shadow-md"
+          >
+            <ArrowLeft size={20} />
+            Back to Bookstore
+          </button>
+        </div>
+
+        {/* Music Player */}
+        <div className="bottom-5 left-5 p-4 flex items-center gap-3 z-30">
+          <button
+            onClick={toggleMusic}
+            className="bg-white/80 text-pink-900 px-4 py-2 rounded-xl shadow hover:bg-pink-500 transition"
+          >
+            {isPlaying ? "Pause Music" : "Play Music"}
+          </button>
+          <audio ref={audioRef} src={birthdaySong} loop />
+        </div>
       </div>
 
       {/* Title */}
