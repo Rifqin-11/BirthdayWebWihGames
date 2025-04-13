@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { X, SkipBack, Play, Pause, SkipForward } from "lucide-react";
 import tape from "../assets/tape2.gif";
-import Bapak from '../assets/VoiceMemos/BapakDya.m4a'
-import Ibu from '../assets/VoiceMemos/IbuDya.m4a'
-import Ayunda from '../assets/VoiceMemos/MbaAyun.m4a'
-import Dya from '../assets/VoiceMemos/Dya.m4a'
-import Ayu from '../assets/VoiceMemos/Ayu.m4a'
+import Bapak from "../assets/VoiceMemos/BapakDya.m4a";
+import Ibu from "../assets/VoiceMemos/IbuDya.m4a";
+import Ayunda from "../assets/VoiceMemos/MbaAyun.m4a";
+import Dya from "../assets/VoiceMemos/Dya.m4a";
+import Ayu from "../assets/VoiceMemos/Ayu.m4a";
 
 interface Book {
   id: number;
@@ -61,6 +61,20 @@ function TapeModal({ onClose }: BookModalProps) {
     }
     setIsPlaying(!isPlaying);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === "Space" || e.key === " ") {
+        e.preventDefault();
+        togglePlayPause();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      removeEventListener("keydown", handleKeyDown);
+    };
+  }, [togglePlayPause]);
 
   // Pindah ke lagu sebelumnya
   const handlePrev = () => {
