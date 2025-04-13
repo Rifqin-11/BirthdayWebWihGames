@@ -21,11 +21,11 @@ interface BookModalProps {
 
 // Daftar lagu yang akan diputar
 const tracks = [
-  { id: 1, title: "Bapak", src: Bapak },
-  { id: 2, title: "Ibu", src: Ibu },
-  { id: 3, title: "Mba Ayunda", src: Ayunda},
-  { id: 4, title: "Dya", src: Dya },
-  { id: 5, title: "Ayu", src: Ayu },
+  { id: 1, title: "Voice Message from Bapak", src: Bapak },
+  { id: 2, title: "Voice Message from Ibu", src: Ibu },
+  { id: 3, title: "Voice Message from Mba Ayunda", src: Ayunda },
+  { id: 4, title: "Voice Message from Dya", src: Dya },
+  { id: 5, title: "Voice Message from Ayu", src: Ayu },
 ];
 
 function TapeModal({ onClose }: BookModalProps) {
