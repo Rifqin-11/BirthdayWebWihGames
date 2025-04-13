@@ -42,6 +42,28 @@ function Home() {
   }, [currentTrackIndex]);
 
   useEffect(() => {
+    const playAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.5;
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.log("Autoplay failed:", err);
+          });
+      }
+    };
+
+    // Coba mainkan audio setelah sedikit delay (untuk bypass beberapa limitasi)
+    const autoplayTimeout = setTimeout(playAudio, 100);
+
+    return () => clearTimeout(autoplayTimeout);
+  }, []);
+
+
+  useEffect(() => {
     const checkScreenSize = () => {
       setIsScreenTooSmall(window.innerWidth < 480);
     };
