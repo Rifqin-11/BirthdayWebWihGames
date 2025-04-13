@@ -17,7 +17,7 @@ function Library() {
   const navigate = useNavigate();
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [showTapeModal, setShowTapeModal] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true); // langsung aktif
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const books = [
@@ -30,20 +30,17 @@ function Library() {
   ];
 
   useEffect(() => {
-    // Confetti langsung saat halaman muncul
     confetti({
       particleCount: 150,
       spread: 90,
       origin: { y: 0.6 },
     });
 
-    // Autoplay musik
     if (audioRef.current) {
       audioRef.current.muted = true;
       audioRef.current
         .play()
         .then(() => {
-          // Setelah berhasil play, unmute agar suara terdengar
           audioRef.current!.muted = false;
         })
         .catch((err) => {
@@ -76,22 +73,20 @@ function Library() {
         />
       </div>
 
-      {/* Content */}
+      {/* Top bar */}
       <div className="relative z-10">
-        <div className="flex justify-between w-full items-center mt-4">
-        {/* Back Button */}
-          <div className="p-6">
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 text-amber-800 hover:text-amber-600 transition-colors bg-white/80 px-4 py-2 rounded-lg shadow-md"
-            >
-              <ArrowLeft size={20} />
-              Back to Bookstore
-            </button>
-          </div>
+        <div className="flex justify-between w-full items-center mt-4 px-6">
+          {/* Back Button */}
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 text-amber-800 hover:text-amber-600 transition-colors bg-white/80 px-4 py-2 rounded-lg shadow-md"
+          >
+            <ArrowLeft size={20} />
+            Back to Bookstore
+          </button>
 
           {/* Music Player */}
-          <div className="bottom-5 left-5 p-4 rounded-xl shadow-lg flex items-center gap-3 z-30">
+          <div className="p-4 rounded-xl shadow-lg flex items-center gap-3 z-30">
             <button
               onClick={toggleMusic}
               className="bg-white/80 text-pink-900 px-4 py-2 rounded-lg shadow hover:bg-pink-500 transition"
@@ -104,9 +99,10 @@ function Library() {
 
         {/* Radio */}
         <motion.div
-          whileHover={{ top: "51vh" }}
+          initial={{ y: 0 }}
+          whileHover={{ y: -20 }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="absolute z-20 left-[70%] top-[53vh] w-[20%] h-auto hover:cursor-pointer"
+          className="absolute z-20 left-[70vw] top-[53vh] w-[20vw] h-auto cursor-pointer"
           onClick={() => {
             setShowTapeModal(true);
             if (audioRef.current && !audioRef.current.paused) {
@@ -120,9 +116,10 @@ function Library() {
 
         {/* Cake */}
         <motion.div
-          whileHover={{ top: "58vh" }}
+          initial={{ y: 0 }}
+          whileHover={{ y: -20 }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="absolute z-20 left-[43%] top-[60vh] w-[15%] h-auto hover:cursor-pointer"
+          className="absolute z-20 left-[42vw] top-[60vh] w-[15vw] h-auto cursor-pointer"
           onClick={() => navigate("/Puzzle")}
         >
           <img src={cake} alt="Cake" className="w-full h-auto" />
@@ -130,16 +127,17 @@ function Library() {
 
         {/* Book */}
         <motion.div
-          whileHover={{ top: "51vh" }}
+          initial={{ y: 0 }}
+          whileHover={{ y: -20 }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="absolute z-20 left-[10%] top-[53vh] w-[20%] h-auto hover:cursor-pointer"
+          className="absolute z-20 left-[10vw] top-[53vh] w-[20vw] h-auto cursor-pointer"
           onClick={() => navigate("/Books")}
         >
           <img src={book} alt="Book" className="w-full h-auto" />
         </motion.div>
 
         {/* Banner */}
-        <div className="absolute z-20 left-[38%] top-[10vh] w-[25%] h-auto">
+        <div className="absolute z-20 left-[37vw] top-[10vh] w-[26vw] h-auto">
           <img src={banner} alt="Banner" className="w-full h-auto" />
         </div>
       </div>
