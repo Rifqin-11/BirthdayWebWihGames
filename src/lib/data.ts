@@ -44,7 +44,7 @@ const PhotoData: Record<string, BookPhotos> = {
   book2: {
     images: [Photo4, Photo5, Photo6, Photo7],
     caption:
-      "look how far you've come, grow, and GLOW hahahaa 👨🏻‍💼🚀",
+      "look how far you've come, grown, and GLOW hahahaa 👨🏻‍💼🚀",
   },
   book3: {
     images: [

@@ -16,7 +16,7 @@ function Home() {
   const [showEnvelope, setShowEnvelope] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isScreenTooSmall, setIsScreenTooSmall] = useState(false); // 👈 new state
+  const [isScreenTooSmall, setIsScreenTooSmall] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const tracks = [
@@ -35,33 +35,35 @@ function Home() {
   ];
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = tracks[currentTrackIndex].src;
-      if (isPlaying) audioRef.current.play();
-    }
-  }, [currentTrackIndex]);
-
-  useEffect(() => {
-    const playAudio = () => {
+    const tryPlay = () => {
       if (audioRef.current) {
+        audioRef.current.src = tracks[currentTrackIndex].src;
         audioRef.current.volume = 0.5;
+
         audioRef.current
           .play()
           .then(() => {
             setIsPlaying(true);
+            console.log("Autoplay success");
           })
           .catch((err) => {
-            console.log("Autoplay failed:", err);
+            console.warn("Autoplay blocked. Waiting for user interaction...");
+
+            const handleUserInteraction = () => {
+              audioRef.current?.play().then(() => {
+                setIsPlaying(true);
+                console.log("Playback started after user interaction");
+                document.removeEventListener("click", handleUserInteraction);
+              });
+            };
+
+            document.addEventListener("click", handleUserInteraction);
           });
       }
     };
 
-    // Coba mainkan audio setelah sedikit delay (untuk bypass beberapa limitasi)
-    const autoplayTimeout = setTimeout(playAudio, 100);
-
-    return () => clearTimeout(autoplayTimeout);
-  }, []);
-
+    tryPlay();
+  }, [currentTrackIndex]);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -106,7 +108,6 @@ function Home() {
     <div className="flex flex-col relative h-screen bg-[#c5b59e] overflow-hidden">
       <Notif message="Try clicking on the window or the door to continue!" />
 
-      {/* Mobile Screen Warning */}
       {isScreenTooSmall && (
         <div className="fixed top-0 left-0 right-0 z-50 bg-red-500 text-white text-center py-2">
           Screen size is too small. Please open this site on a device with a
@@ -114,12 +115,11 @@ function Home() {
         </div>
       )}
 
-      {/* Background */}
       <div className="absolute inset-0 z-0">
         <img src={background} alt="Bookstore" className="w-full h-full" />
       </div>
 
-      {/* Floating Music Player Control */}
+      {/* Music Player */}
       <div className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-white/80 shadow-lg rounded-full px-4 py-2">
         <button
           onClick={playPrev}
@@ -142,18 +142,15 @@ function Home() {
         <span className="text-sm text-gray-700 ml-3">
           {tracks[currentTrackIndex].title}
         </span>
-        <audio ref={audioRef} autoPlay loop />
+        <audio ref={audioRef} loop />
       </div>
 
-      {/* Interactive Elements */}
       <div className="flex-1 relative z-10">
-        {/* Door */}
         <div
           className="absolute right-[8%] bottom-[13%] w-[24vw] h-[55vh] cursor-pointer hover:opacity-80 transition-opacity hover:bg-white/20"
           onClick={() => navigate("/library")}
         />
 
-        {/* Cat */}
         <div
           className="absolute right-[8%] bottom-[5%] w-[10vw] h-[20vh]"
           onMouseEnter={() => setShowChatBubble(true)}
@@ -208,7 +205,6 @@ function Home() {
         </p>
       </footer>
 
-      {/* Book Modal */}
       <AnimatePresence>
         {selectedBook && (
           <BookModal
@@ -218,7 +214,6 @@ function Home() {
         )}
       </AnimatePresence>
 
-      {/* Envelope Modal */}
       <AnimatePresence>
         {showEnvelope && (
           <EnvelopeModal
